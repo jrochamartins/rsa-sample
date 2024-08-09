@@ -1,18 +1,32 @@
 ﻿using KeyGenerator;
 
-// Gerar chaves
-var (PublicKey, PrivateKey) = RSAKeyGenerator.GenerateKeys();
-string publicKey = PublicKey;
-string privateKey = PrivateKey;
 
-// Mensagem a ser criptografada
-string originalMessage = "Hello, world!";
-Console.WriteLine("Original Message: " + originalMessage);
+using (var factory = new CriptoProviderFactory())
+{
+    //// Gerar chaves
+    //var (PublicKey, PrivateKey) = new RSAKeyGenerator(factory).GenerateKeys();
+    //string publicKey = PublicKey;
+    //string privateKey = PrivateKey;
 
-// Criptografar mensagem
-string encryptedMessage = RSAEncryptor.Encrypt(originalMessage, publicKey);
-Console.WriteLine("Encrypted Message: " + encryptedMessage);
+    // Mensagem a ser criptografada
+    string originalMessage = "Hello, world!";
+    Console.WriteLine("Original Message: " + originalMessage);
 
-// Descriptografar mensagem
-string decryptedMessage = RSADecryptor.Decrypt(encryptedMessage, privateKey);
-Console.WriteLine("Decrypted Message: " + decryptedMessage);
+    // Criptografar mensagem
+    string encryptedMessage = new RSAEncryptor(factory)
+        .Encrypt(
+            originalMessage
+            //, publicKey
+        );
+    Console.WriteLine("Encrypted Message: " + encryptedMessage);
+
+    // Descriptografar mensagem
+    string decryptedMessage = new RSADecryptor(factory)
+        .Decrypt(
+            encryptedMessage
+            //, privateKey
+        );
+    Console.WriteLine("Decrypted Message: " + decryptedMessage);
+}
+
+

@@ -1,14 +1,13 @@
-﻿using System.Security.Cryptography;
-
-namespace KeyGenerator
+﻿namespace KeyGenerator
 {
-    internal class RSAKeyGenerator
+    internal class RSAKeyGenerator(CriptoProviderFactory factory)
     {
-        internal static (string PublicKey, string PrivateKey) GenerateKeys()
-        {
-            using var rsa = new RSACryptoServiceProvider(2048);
-            var publicKey = Convert.ToBase64String(rsa.ExportRSAPublicKey());
-            var privateKey = Convert.ToBase64String(rsa.ExportRSAPrivateKey());
+        private readonly CriptoProviderFactory factory = factory ?? throw new ArgumentNullException(nameof(factory));
+
+        internal (string PublicKey, string PrivateKey) GenerateKeys()
+        {   
+            var publicKey = Convert.ToBase64String(factory.Instance.ExportRSAPublicKey());
+            var privateKey = Convert.ToBase64String(factory.Instance.ExportRSAPrivateKey());
             return (publicKey, privateKey);
         }
     }

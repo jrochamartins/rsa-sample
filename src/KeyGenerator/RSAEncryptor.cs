@@ -1,21 +1,19 @@
-﻿using System.Security.Cryptography;
-using System.Text;
+﻿using System.Text;
 
 namespace KeyGenerator
 {
-    internal class RSAEncryptor
+    internal class RSAEncryptor(CriptoProviderFactory factory)
     {
-        internal static string Encrypt(string plainText, string publicKey)
+        private readonly CriptoProviderFactory factory = factory ?? throw new ArgumentNullException(nameof(factory));
+
+        internal string Encrypt(
+            string plainText
+            //, string publicKey
+            )
         {
-            byte[] dataToEncrypt = Encoding.UTF8.GetBytes(plainText);
-            byte[] encryptedData;
-
-            using (var rsa = new RSACryptoServiceProvider(2048))
-            {
-                rsa.ImportRSAPublicKey(Convert.FromBase64String(publicKey), out _);
-                encryptedData = rsa.Encrypt(dataToEncrypt, false);
-            }
-
+            //factory.Instance.ImportRSAPublicKey(Convert.FromBase64String(publicKey), out _);
+            var dataToEncrypt = Encoding.UTF8.GetBytes(plainText);
+            var encryptedData = factory.Instance.Encrypt(dataToEncrypt, false);
             return Convert.ToBase64String(encryptedData);
         }
     }
