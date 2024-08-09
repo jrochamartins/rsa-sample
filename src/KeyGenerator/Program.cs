@@ -1,6 +1,5 @@
 ﻿using KeyGenerator;
 
-
 using (var factory = new CriptoProviderFactory())
 {
     //// Gerar chaves
@@ -16,7 +15,7 @@ using (var factory = new CriptoProviderFactory())
     string encryptedMessage = new RSAEncryptor(factory)
         .Encrypt(
             originalMessage
-            //, publicKey
+        //, publicKey
         );
     Console.WriteLine("Encrypted Message: " + encryptedMessage);
 
@@ -24,9 +23,7 @@ using (var factory = new CriptoProviderFactory())
     string decryptedMessage = new RSADecryptor(factory)
         .Decrypt(
             encryptedMessage
-            //, privateKey
+        //, privateKey
         );
     Console.WriteLine("Decrypted Message: " + decryptedMessage);
 }
-
-
