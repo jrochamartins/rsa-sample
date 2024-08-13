@@ -2,10 +2,10 @@
 
 using (var factory = new CriptoProviderFactory())
 {
-    //// Gerar chaves
-    //var (PublicKey, PrivateKey) = new RSAKeyGenerator(factory).GenerateKeys();
-    //string publicKey = PublicKey;
-    //string privateKey = PrivateKey;
+    // Gerar chaves
+    var (PublicKey, PrivateKey) = new RSAKeyGenerator(factory).GenerateKeys();
+    string publicKey = PublicKey;
+    string privateKey = PrivateKey;
 
     // Mensagem a ser criptografada
     string originalMessage = "Hello, world!";

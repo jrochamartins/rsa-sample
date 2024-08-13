@@ -8,7 +8,7 @@ namespace GenerateCertsExample
     {
         public static void Main(string[] args)
         {
-            using (var rsa = RSA.Create(2048))
+            using (var rsa = RSA.Create(4096))
             {
                 // Criar a solicitação de certificado X.509
                 var req = new CertificateRequest("CN=ExampleCertificate", rsa, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
